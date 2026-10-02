@@ -50,17 +50,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 SERPAPI_KEY = os.environ["SERPAPI_KEY"]
-
-SMTP_HOST = os.getenv("SMTP_HOST", "smtp.gmail.com")
-SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
-SMTP_USER = os.environ["SMTP_USER"]
-SMTP_PASSWORD = os.environ["SMTP_PASSWORD"]
 EMAIL_TO = os.environ["EMAIL_TO"]
+EMAIL_FROM = os.environ["EMAIL_FROM"]
+GMAIL_APP_PASSWORD = os.environ["GMAIL_APP_PASSWORD"]
 
-DB_PATH = os.getenv("DB_PATH", "job_alerts.sqlite3")
-DAYS_NEW = int(os.getenv("DAYS_NEW", "3"))
-MAX_EMAIL_JOBS = int(os.getenv("MAX_EMAIL_JOBS", "20"))
-MIN_FIT_SCORE = int(os.getenv("MIN_FIT_SCORE", "30"))
+DB_PATH = "job_alerts.sqlite3"
+DAYS_NEW = 3
+MAX_EMAIL_JOBS = 20
+MIN_FIT_SCORE = 30
+
+# Override with environment variables if they exist
+DB_PATH = os.getenv("DB_PATH", DB_PATH)
+DAYS_NEW = int(os.getenv("DAYS_NEW", DAYS_NEW))
+MAX_EMAIL_JOBS = int(os.getenv("MAX_EMAIL_JOBS", MAX_EMAIL_JOBS))
+MIN_FIT_SCORE = int(os.getenv("MIN_FIT_SCORE", MIN_FIT_SCORE))
 
 # Search phrases. Each phrase gets searched in each target market.
 SEARCHES = [

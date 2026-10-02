@@ -1,0 +1,44 @@
+name: Job Alerts
+
+on:
+  schedule:
+    - cron: "0 13 * * *"   # Runs daily at 8:00 AM Central / 13:00 UTC
+  workflow_dispatch:       # Allows manual triggering of the workflow
+
+jobs:
+  send-job-alerts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Restore job database
+        uses: actions/cache@v4
+        with:
+          path: job_alerts.sqlite3
+          key: job-alerts-db-${{ github.ref_name }}-${{ github.run_number }}
+          restore-keys: |
+            job-alerts-db-${{ github.ref_name }}-
+
+      - name: Run job alert script
+        env:
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python job_alerts.py
+
+      - name: Save job database
+        uses: actions/cache/save@v4
+        with:
+          path: job_alerts.sqlite3
+          key: job-alerts-db-${{ github.ref_name }}-${{ github.run_number }}
