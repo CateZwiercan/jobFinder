@@ -1,33 +1,5 @@
 #!/usr/bin/env python3
-"""
-Job Alert Bot
--------------
-Finds new Front-End Software Engineer, Angular Developer, Product Owner,
-Business Analyst, and relevant Manager jobs that are:
-  - Remote in the US, OR
-  - Hybrid/Onsite in Greater Philadelphia, Delaware, NYC, Boston, or DC
 
-It sends an email containing DIRECT employer/ATS application links and
-remembers previously emailed jobs in SQLite so you don't get duplicates.
-
-Data source: SerpApi Google Jobs API
-https://serpapi.com/google-jobs-api
-
-Setup:
-1. pip install requests python-dotenv
-2. Create a .env file (see .env.example below)
-3. Run: python job_alerts.py
-
-Required environment variables:
-SERPAPI_KEY=your_serpapi_key
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=you@gmail.com
-SMTP_PASSWORD=your_gmail_app_password
-EMAIL_TO=you@gmail.com
-
-For Gmail, use a Google App Password rather than your normal password.
-"""
 
 from __future__ import annotations
 
