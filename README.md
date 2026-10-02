@@ -1,0 +1,2 @@
+# jobFinder
+Automate finding jobs 
